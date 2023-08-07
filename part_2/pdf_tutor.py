@@ -15,7 +15,7 @@ with st.container():
     st.markdown("""# PDF Tutor""")
 
 # Get user's OpenAI API Key
-openai_api_key = st.text_input(label="Clé API OpenAI ",  value="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", key="openai_api_key_input")
+openai_api_key = st.text_input(label="Clé API OpenAI ",  value="", key="openai_api_key_input")
 
 
 option = st.selectbox(
