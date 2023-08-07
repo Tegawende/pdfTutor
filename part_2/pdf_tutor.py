@@ -18,8 +18,16 @@ with st.container():
 openai_api_key = st.text_input(label="Clé API OpenAI ",  value="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", key="openai_api_key_input")
 
 
-temp = st.slider('Température (Créativé)', 0.0, 2.0, step=0.1,)
+option = st.selectbox(
+    'Niveau de créativité des questions',
+    ('Neutre', 'Créatif', 'Très créatif'))
 
+
+temp_dico = {
+    "Neutre" : 0,
+    "Créatif" : 1,
+    "Très créatif" : 2
+}
 
 # Let user upload a file
 uploaded_file = st.file_uploader("Chargez votre document pdf", type=['pdf'])
@@ -39,7 +47,7 @@ if uploaded_file is not None:
         documents_for_question_answering = split_text(text_from_pdf, chunk_size=500, chunk_overlap=200)
 
         # Initialize large language model for question generation
-        llm_question_gen = initialize_llm(openai_api_key=openai_api_key, model="gpt-3.5-turbo-16k", temperature=0.4)
+        llm_question_gen = initialize_llm(openai_api_key=openai_api_key, model="gpt-3.5-turbo-16k", temperature=temp_dico[option])
 
         # Initialize large language model for question answering
         llm_question_answering = initialize_llm(openai_api_key=openai_api_key, model="gpt-3.5-turbo", temperature=0.1)
